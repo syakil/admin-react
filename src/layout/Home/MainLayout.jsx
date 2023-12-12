@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from '../../component/navigation/Sidebar';
 import Header from '../../component/navigation/Header';
 import Footer from '../../component/navigation/Footer';
-import BlogPost from '../../page/BlogPost/BlogPost';
-import Product from '../../page/product/product';
-import Dashboard from '../../page/dashboard/Dashboard';
+import {Outlet} from "react-router-dom";
 
 class MainLayout extends Component {
     state = {
@@ -23,18 +20,42 @@ class MainLayout extends Component {
                 <div id="wrapper">
                     <Sidebar />
                     <div id="content-wrapper" className="d-flex flex-column">
-                        <Header order={this.state.order} updateOrder={this.updateOrder} />
+                        <Header order={this.state.order} updateOrder={this.updateOrder}/>
                         <div id="content">
                             <div className="container-fluid">
-                                {/* Only the content inside this area will change */}
-                                <Routes>
-                                    <Route path="/" element={<Dashboard />} />
-                                    <Route path="/blog" element={<BlogPost />} />
-                                    <Route path="/product" element={<Product />} />
-                                </Routes>
+                                <Outlet/>
                             </div>
                         </div>
-                        <Footer />
+                        <Footer/>
+
+                        <a className="scroll-to-top rounded" href="#page-top">
+                            <i className="fas fa-angle-up"></i>
+                        </a>
+
+                        <div className="modal fade" id="logoutModal" tabIndex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                        <button className="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">Select "Logout" below if you are ready to end your
+                                        current session.
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button className="btn btn-secondary" type="button"
+                                                data-dismiss="modal">Cancel
+                                        </button>
+                                        <a className="btn btn-primary" href="login.html">Logout</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </>
